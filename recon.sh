@@ -20,9 +20,9 @@ mkdir -p "$FOLDER"
 touch "$HISTORY"
 
 echo "[+] Run 'subfinder'..."
-subfinder -d $DOMAIN -silent > $RAW
+/Users/liuyc/go/bin/subfinder -d $DOMAIN -silent > $RAW
 echo "[+] Run 'assetfinder'..."
-assetfinder --subs-only $DOMAIN >> $RAW
+/Users/liuyc/go/bin/assetfinder --subs-only $DOMAIN >> $RAW
 echo "[+] Deduplicate raw subdomains..."
 CLEANED=$(cat "$RAW" | tr '[:upper:]' '[:lower:]' | sort -u)
 echo "[+] Compare to history.txt..."
@@ -32,7 +32,7 @@ cat "$NEW" >> "$HISTORY"
 sort -u "$HISTORY" -o "$HISTORY"
 
 echo "[+] Run 'httpx'..."
-cat $NEW | httpx -mc 200,301,302 -silent -status-code -title -tech-detect -no-color > "$FOLDER/new_live_hosts.txt"
+cat $NEW | /Users/liuyc/go/bin/httpx -mc 200,301,302 -silent -status-code -title -tech-detect -no-color > "$FOLDER/new_live_hosts.txt"
 
 echo "✅ Found $(wc -l < "$NEW") new subdomains"
 
